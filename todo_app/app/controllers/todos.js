@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+export default Ember.ArrayController.extend({
   actions: {
     createTodo: function () {
       var title = this.get('newTitle').trim();
@@ -15,5 +15,14 @@ export default Ember.Controller.extend({
 
       todo.save();
     }
-  }
+  },
+
+  remaining: function () {
+    return this.filterBy('isCompleted', false).get('length');
+  }.property('@each.isCompleted'),
+
+  inflection: function () {
+    var remaining = this.get('remaining');
+    return remaining === 1 ? 'item' : 'items';
+  }.property('remaining')
 });
