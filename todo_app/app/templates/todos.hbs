@@ -9,7 +9,7 @@
     <ul id="todo-list">
       {{#each todo in model}}
         <li {{bind-attr class="todo.isCompleted:completed"}}>
-          <input class="toggle" type="checkbox">
+          {{input class="toggle" type="checkbox" checked=todo.isCompleted}}
           <label>{{todo.title}}</label>
           <button class="destroy"></button>
         </li>
