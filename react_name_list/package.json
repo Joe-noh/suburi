@@ -1,0 +1,11 @@
+{
+  "name": "name_list",
+  "version": "1.0.0",
+  "description": "learn react.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Joe Honzawa",
+  "license": "MIT"
+}
