@@ -31,6 +31,14 @@ var _React2 = _interopRequireWildcard(_React);
 var Member = _React2["default"].createClass({
   displayName: "Member",
 
+  onDestroyMember: function onDestroyMember() {
+    this.props.onDestroyMember(this.props.memberId);
+  },
+
+  compomentWillReceiveProps: function compomentWillReceiveProps() {
+    console.log("woo");
+  },
+
   render: function render() {
     return _React2["default"].createElement(
       "tr",
@@ -44,6 +52,15 @@ var Member = _React2["default"].createClass({
         "td",
         null,
         this.props.age
+      ),
+      _React2["default"].createElement(
+        "td",
+        null,
+        _React2["default"].createElement(
+          "button",
+          { onClick: this.onDestroyMember },
+          "x"
+        )
       )
     );
   }
@@ -146,9 +163,11 @@ var MembersTable = _React2['default'].createClass({
   displayName: 'MembersTable',
 
   render: function render() {
-    var members = this.props.members.map(function (member, i) {
-      return _React2['default'].createElement(_Member2['default'], { key: i, name: member.name, age: member.age });
-    });
+    var members = this.props.members.map((function (member, i) {
+      return _React2['default'].createElement(_Member2['default'], { key: i, memberId: i, name: member.name, age: member.age,
+        onDestroyMember: this.props.onDestroyMember });
+    }).bind(this));
+
     return _React2['default'].createElement(
       'table',
       { className: 'members-table' },
@@ -215,11 +234,19 @@ var NameList = _React2['default'].createClass({
     });
   },
 
+  onDestroyMember: function onDestroyMember(targetIndex) {
+    var newMembers = this.state.members.filter(function (memebr, i) {
+      return targetIndex !== i;
+    });
+
+    this.setState({ members: newMembers });
+  },
+
   render: function render() {
     return _React2['default'].createElement(
       'div',
       null,
-      _React2['default'].createElement(_MembersTable2['default'], { members: this.state.members }),
+      _React2['default'].createElement(_MembersTable2['default'], { members: this.state.members, onDestroyMember: this.onDestroyMember }),
       _React2['default'].createElement(_MembersStat2['default'], { members: this.state.members }),
       _React2['default'].createElement(_NewMemberForm2['default'], { onNewMemberSubmit: this.onNewMemberSubmit })
     );

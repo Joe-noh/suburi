@@ -17,10 +17,18 @@ let NameList = React.createClass({
     })
   },
 
+  onDestroyMember(targetIndex) {
+    let newMembers = this.state.members.filter(function(memebr, i) {
+      return targetIndex !== i
+    })
+
+    this.setState({members: newMembers})
+  },
+
   render() {
     return (
       <div>
-        <MembersTable members={this.state.members} />
+        <MembersTable members={this.state.members} onDestroyMember={this.onDestroyMember}/>
         <MembersStat members={this.state.members}/>
 
         <NewMemberForm onNewMemberSubmit={this.onNewMemberSubmit}/>
