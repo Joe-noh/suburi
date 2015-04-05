@@ -4,7 +4,7 @@
   "description": "learn react.js",
   "scripts": {
     "watch": "watchify app/browser.js -o dist/bundle.js -v",
-    "build": "browserify app/browser.js -o dist/bundle.js",
+    "build": "browserify app/browser.js > dist/bundle.js",
     "test": "jest"
   },
   "author": "Joe Honzawa",
